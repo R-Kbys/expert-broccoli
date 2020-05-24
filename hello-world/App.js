@@ -1,38 +1,22 @@
-import React,{Component} from 'react';
-import { StyleSheet, Button, Text, View, TextInput, Alert, Platform} from 'react-native';
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { FirstPage } from './firstPage';
+import { SecondPage } from './secondPage';
 
-export default function App() {
-  const [value, onChangeText] = React.useState('Useless Placeholder');
+const Stack = createStackNavigator();
 
+function App() {
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={{ height: 100, borderColor: 'gray', borderWidth: 1, width: 150}}
-        onChangeText={text => onChangeText(text)}
-        value={value}
-      />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="次にやることを入力"
-          onPress={() => Alert.alert('入力しました')}
-          color="#FFF"
-        />
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="firstPage">
+        <Stack.Screen name="firstPage" component={FirstPage} />
+        <Stack.Screen name="secondPage" component={SecondPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    height: 35,
-    width: 200,
-    margin: 10,
-    backgroundColor: '#4169e1'
-  },
-});
+export default App
